@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css')  }}">
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-top">
         {{ csrf_field()  }}
         <a class="navbar-brand" href="/">Music Wind</a>
@@ -48,6 +48,8 @@
         </div>
     </nav>
     <div class="row main-row">
+        @yield('player')
+        @guest
         <div class="col col-left">
             @yield('content')
         </div>
@@ -60,6 +62,8 @@
                 <li><h4>Follow artists to keep up to date</h4></li>
             </ul>
         </div>
+        @endguest
+
     </div>
 </div>
 

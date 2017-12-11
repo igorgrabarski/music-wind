@@ -21,7 +21,7 @@
             <label for="password-confirm">Confirm password</label>
             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
         </div>
-        <button type="submit" class="btn btn-primary btn-block button">SIGN UP</button>
+        <button type="submit" class="btn  btn-block button-login">SIGN UP</button>
 
         @if($errors->any())
             <ul class="list-group list">
