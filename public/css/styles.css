@@ -74,3 +74,31 @@ a {
 a:hover {
     color: #069a32;
 }
+
+.navbar-top {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+}
+
+.navbar-top a {
+    color: #069a32!important;
+}
+
+.navbar-top .navbar-brand {
+    font-size: 2em;
+}
+
+.list-items {
+    position: absolute;
+    right: 0;
+}
+.list-items a {
+    padding: 0 20px!important;
+}
+
+.signup-item > a {
+    color:#fff!important;
+}
+
+
