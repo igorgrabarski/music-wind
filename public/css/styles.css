@@ -46,9 +46,9 @@ body {
     list-style-image: url(../images/thumb.png);
 }
 
-.button {
+.button-login {
     background: #069a32 !important;
-    color: #fff;
+    color: #fff!important;
 }
 
 .button-white {
@@ -85,6 +85,16 @@ a:hover {
     color: #069a32!important;
 }
 
+.navbar-top  button {
+    color: #069a32!important;
+    font-size: 1em;
+    margin-top: -7px;
+}
+
+.navbar-top  button:hover {
+    text-decoration: none;
+}
+
 .navbar-top .navbar-brand {
     font-size: 2em;
 }
@@ -99,6 +109,13 @@ a:hover {
 
 .signup-item > a {
     color:#fff!important;
+    font-weight: lighter;
 }
 
+.grow {
+    transition: all .2s ease-in-out;
+}
 
+.grow:hover {
+    transform: scale(1.5);
+}

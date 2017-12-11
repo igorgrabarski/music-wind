@@ -17,7 +17,7 @@
                 <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
             </label>
         </div>
-            <button type="submit" class="btn btn-block button">
+            <button type="submit" class="btn btn-block button-login">
             LOG IN
         </button>
         @if($errors->any())

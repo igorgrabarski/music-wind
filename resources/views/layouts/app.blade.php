@@ -20,21 +20,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav list-items">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only text-right">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link grow" href="/">Home <span class="sr-only text-right">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/albums">Albums</a>
+                    <a class="nav-link grow" href="/albums">Albums</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/artists">Artists</a>
+                    <a class="nav-link grow" href="/artists">Artists</a>
                 </li>
+                @guest
                 <li class="nav-item">
-                    <a class="nav-link text-capitalize" href="{{ route('login')  }}">Log in</a>
+                    <a class="nav-link grow" href="{{ route('login')  }}">Log in</a>
                 </li>
                 <li class="nav-item signup-item">
-                    <a class="nav-link" href="{{ route('register')  }}">Sign up</a>
+                    <a class="nav-link grow" href="{{ route('register')  }}">Sign up</a>
                 </li>
+                @else
+                    <li class="nav-item">
+                        <form action="{{ route('logout')  }}" method="post">
+                            {{ csrf_field()  }}
+                            <button class="btn btn-link grow" type="submit">Log out</button>
+                        </form>
+                    </li>
+                @endguest
             </ul>
         </div>
     </nav>
