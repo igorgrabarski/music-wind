@@ -31,14 +31,5 @@
             </ul>
         @endif
     </form>
-    <h5 class="text-center already">Already have an account?</h5>
-    <button id="login" class="btn btn-block button-white">LOG IN</button>
-    <script>
-        window.onload = function () {
-            document.getElementById("login").addEventListener("click", function (e) {
-                window.location.replace("/login");
-                e.preventDefault();
-            });
-        }
-    </script>
+    <h6 class="text-left or">Have an account? <a href="{{ route('login')  }}">Log in here</a></h6>
 @endsection

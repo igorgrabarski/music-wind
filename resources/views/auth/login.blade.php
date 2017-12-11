@@ -28,16 +28,6 @@
             </ul>
         @endif
     </form>
-    <h5 class="text-center or">or</h5>
-    <button id="register" class="btn btn-block button-white">SIGN UP</button>
-
-    <script>
-        window.onload = function () {
-            document.getElementById("register").addEventListener("click", function (e) {
-                window.location.replace("/register");
-                e.preventDefault();
-            });
-        }
-    </script>
+    <h6 class="text-left or">Don't have an account yet? <a href="{{ route('register')  }}">Sign up here</a></h6>
 @endsection
 
