@@ -20,13 +20,13 @@ body {
 
 .col-left {
     border-right: 1px solid #999;
-    padding-right: 60px;
-    padding-left: 40px;
+    padding-right: 100px;
+    padding-left: 100px;
 }
 
 .col-right {
-    padding-left: 60px;
-    padding-right: 40px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .title-large {
@@ -103,7 +103,7 @@ a:hover {
 
 .navbar-top .navbar-brand {
     font-size: 2em;
-    margin-left: 200px;
+    margin-left: 300px;
 }
 
 .list-items {
@@ -273,9 +273,28 @@ a:hover {
 
 #navBarContainer {
     background: #000;
-    width: 220px;
+    width: 300px;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
+}
+
+
+.songs-list {
+    padding: 0;
+}
+
+.songs-list li {
+    background: #404040;
+    list-style: none;
+    padding: 20px;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}
+
+
+.songs-list li:hover {
+    background: #a0a0a0;
+    color: #404040;
 }

@@ -11,11 +11,11 @@
 |
 */
 
+use App\Http\Controllers\TrackController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
-Route::get('/', function () {
-    return view('home');
-})->middleware('auth');
+Route::get('/', 'TrackController@index')->middleware('auth');
 
 Auth::routes();
 
