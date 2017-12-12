@@ -5,10 +5,27 @@
         <div id="topContainer">
             <div id="navBarContainer">
                 <nav class="navBar">
-                    @if(count($songs) > 0)
+                    @if(count($tracks) > 0)
                         <ul class="songs-list" id="play-list">
-                            @foreach($songs as $song)
-                                <li>{{ $song->title  }}</li>
+                            @foreach($tracks as $track)
+                                <li id="{{ $track->id }}">
+                                    <h5>{{ $track->title }}</h5>
+                                    {{-- Access album details from the track --}}
+                                    <p>{{ $track->album->title }}</p>
+                                    {{-- Access artist details from the track --}}
+                                    <p><i>{{ $track->artist->name }}</i></p>
+
+                                     {{-- **************************
+                                     Get all the tracks for album:
+                                     $track ->album->track
+
+                                     Get all the tracks for artist:
+                                     $track->artist->track
+
+                                     ******************************* --}}
+
+                                </li>
+
                             @endforeach
                         </ul>
                     @endif
@@ -56,15 +73,15 @@
                             </button>
                         </div>
                         <div class="playbackBar" style="color: #fff;">
-                            <span class="progressTime current">0.00</span>
-                            <div class="progressBar">
+                            <span id="current" class="progressTime current">0.00</span>
+                            <div id="progressBar" class="progressBar">
                                 <div class="progressBarBg">
-                                    <div class="progress">
+                                    <div id="progress" class="progress">
 
                                     </div>
                                 </div>
                             </div>
-                            <span class="progressTime remaining">0.00</span>
+                            <span id="remaining" class="progressTime remaining">0.00</span>
                         </div>
                     </div>
                 </div>
@@ -89,33 +106,95 @@
     <script>
         window.onload = function () {
 
+            // Current and total time elements
+            var current = document.getElementById('current');
+            var remaining = document.getElementById('remaining');
+
+
+            // Audio player element
             var audioElement = new Audio();
-
+            // Initial value
             var playing = false;
+            // Sets the total song's duration
+            audioElement.addEventListener('canplay', function () {
+                remaining.innerHTML = (this.duration/60).toFixed(2).replace('.',' : ');
+            });
 
-            document.getElementById('play-list').addEventListener('click', function (e) {
-                audioElement.pause();
-                audioElement.currentTime = 0;
-                audioElement.src = "{{ asset('storage/music/Fall' ) }}" + "/" + e.target.innerHTML + ".mp3";
-                audioElement.play();
-                document.getElementById('play').setAttribute('style', 'display: none;');
-                document.getElementById('pause').setAttribute('style', 'display: inline;');
+            // Updates the progress bar on song progression
+            audioElement.addEventListener('timeupdate', function () {
+                if(this.duration){
+                    current.innerHTML = (this.currentTime/60).toFixed(2).replace('.', ' : ');
+                    remaining.innerHTML = (this.duration/60 - this.currentTime/60).toFixed(2).replace('.', ' : ');
+
+                    var progress = this.currentTime / this.duration * 100;
+
+                    document.getElementById('progress').setAttribute('style', 'width: ' + progress + '%;');
+                }
+            });
+
+            var mousedown = false;
+
+            var progressBar = document.getElementById('progressBar');
+            // Updates the song progress bar on user click
+            progressBar.addEventListener('mousedown', function () {
+                mousedown = true;
             });
 
 
+            progressBar.addEventListener('mousemove', function (e) {
+                if(mousedown){
+                    timeFromOffset(e, this);
+                }
+            });
+
+            progressBar.addEventListener('mouseup', function (e) {
+                if(mousedown){
+                    timeFromOffset(e, this, audioElement);
+                }
+            });
+
+            document.addEventListener('mouseup', function () {
+               mousedown = false;
+            });
+
+            function timeFromOffset(mouse, progressBar) {
+                var percentage = mouse.offsetX / progressBar.offsetWidth * 100;
+                var seconds = audioElement.duration * (percentage / 100);
+                audioElement.setTime(seconds);
+            }
+
+
+            // Play button element
             var play = document.getElementById('play');
             play.addEventListener('click', function () {
                 switchPlayPause();
             });
+
+            // Pause button element
             var pause = document.getElementById('pause');
             pause.addEventListener('click', function () {
                 switchPlayPause();
             });
 
+            // Event listener for click on list item
+            document.getElementById('play-list').addEventListener('click', function (e) {
+
+                current.innerHTML = 0.00;
+                audioElement.pause();
+                audioElement.currentTime = 0;
+                audioElement.src = "{{ asset('storage/music/Fall' ) }}" + "/" + e.target.innerHTML + ".mp3";
+                audioElement.play();
+                play.setAttribute('style', 'display: none;');
+                pause.setAttribute('style', 'display: inline;');
+                playing = true;
+            });
+
+
+
+            // Switch play/pause
             function switchPlayPause() {
                 if(playing){
                     audioElement.pause();
-                    audioElement.currentTime = 0;
                     play.setAttribute('style', 'display: inline;');
                     pause.setAttribute('style', 'display: none;');
                     playing = false;
